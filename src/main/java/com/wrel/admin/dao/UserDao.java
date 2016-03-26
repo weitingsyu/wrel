@@ -1,13 +1,25 @@
 
-package com.wrel.spring.config;
+package com.wrel.admin.dao;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
-@Configuration
-@ComponentScan({ "com.wrel" })
-public class SpringRootConfig {
+import com.wrel.admin.entity.User;
 
+/**
+ *
+ * Page/Class Name: UserDao
+ * Title:
+ * Description:
+ * author: weiting
+ * Create Date:	2016年3月26日
+ * Last Modifier: eldar
+ * Last Modify Date: 2016年3月26日
+ * Version 1.0
+ *
+ */
+@Repository
+public class UserDao extends BaseDao {
     //================================================
     //== [Enumeration types] Block Start
     //====
@@ -51,6 +63,17 @@ public class SpringRootConfig {
     //================================================
     //== [Method] Block Start
     //====
+    public final User getUserByEmail(final String email) {
+        final StringBuilder str = new StringBuilder();
+        str.append("FROM User WHERE email = :email");
+
+        final Query query = this.sessionFactory.getCurrentSession().createQuery(str.toString());
+        query.setString("email", email);
+
+        final User user = (User) query.uniqueResult();
+        return user;
+
+    }
     //####################################################################
     //## [Method] sub-block : 
     //####################################################################

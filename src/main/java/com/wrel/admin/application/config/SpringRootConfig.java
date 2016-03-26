@@ -1,21 +1,13 @@
 
-package com.wrel.spring.config;
+package com.wrel.admin.application.config;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-/**
- *
- * Page/Class Name: WebInitializer
- * Title:
- * Description:
- * author: weiting
- * Create Date:	2016年3月26日
- * Last Modifier: eldar
- * Last Modify Date: 2016年3月26日
- * Version 1.0
- *
- */
-public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+@Configuration
+@ComponentScan({ "com.wrel" })
+public class SpringRootConfig {
+
     //================================================
     //== [Enumeration types] Block Start
     //====
@@ -54,20 +46,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     //================================================
     //== [Overrided Method] Block Start (Ex. toString/equals+hashCode)
     //====
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { SpringRootConfig.class };
-    }
-
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return new Class[] { SpringWebConfig.class };
-    }
-
-    @Override
-    protected String[] getServletMappings() {
-        return new String[] { "/" };
-    }
     //====
     //== [Overrided Method] Block Stop 
     //================================================

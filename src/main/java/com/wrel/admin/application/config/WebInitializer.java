@@ -1,23 +1,11 @@
 
-package com.wrel.admin.controller;
+package com.wrel.admin.application.config;
 
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.wrel.admin.entity.User;
-import com.wrel.admin.service.UserService;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  *
- * Page/Class Name: IndexController
+ * Page/Class Name: WebInitializer
  * Title:
  * Description:
  * author: weiting
@@ -27,8 +15,7 @@ import com.wrel.admin.service.UserService;
  * Version 1.0
  *
  */
-@Controller
-public class IndexController {
+public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     //================================================
     //== [Enumeration types] Block Start
     //====
@@ -37,15 +24,11 @@ public class IndexController {
     //================================================
     //== [static variables] Block Start
     //====
-    private final Logger logger = LoggerFactory.getLogger(IndexController.class);
-
     //====
     //== [static variables] Block Stop 
     //================================================
     //== [instance variables] Block Start
     //====
-    @Autowired
-    private UserService userService;
     //====
     //== [instance variables] Block Stop 
     //================================================
@@ -71,33 +54,25 @@ public class IndexController {
     //================================================
     //== [Overrided Method] Block Start (Ex. toString/equals+hashCode)
     //====
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[] { SpringRootConfig.class };
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[] { SpringWebConfig.class };
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+        return new String[] { "/" };
+    }
     //====
     //== [Overrided Method] Block Stop 
     //================================================
     //== [Method] Block Start
     //====
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Map<String, Object> model) {
-
-        logger.debug("index() is executed!");
-        final User user = this.userService.getUserByEmail("aa");
-        logger.debug("user : {}", user.toString());
-        return "index";
-    }
-
-    @RequestMapping(value = "/hello/{name:.+}", method = RequestMethod.GET)
-    public ModelAndView hello(@PathVariable("name") String name) {
-
-        logger.debug("hello() is executed - $name {}", name);
-
-        ModelAndView model = new ModelAndView();
-        model.setViewName("index");
-
-        return model;
-
-    }
-
     //####################################################################
     //## [Method] sub-block : 
     //####################################################################
