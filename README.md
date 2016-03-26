@@ -12,16 +12,14 @@ Template for Spring 4 MVC + JSP view + Annotation configuration, using Gradle bu
 
 ###2. To Run this project locally
 ```shell
-$ git clone https://github.com/mkyong/spring4-mvc-gradle-annotation-hello-world
+$ git clone https://github.com/weitingsyu/wrel.git
 $ gradle jettyRun
 ```
-Access ```http://localhost:8080/spring4```
+Access ```http://localhost:8080/wrel```
 
 ###3. To import this project into Eclipse IDE
 1. ```$ gradle eclipse```
 2. Import into Eclipse via **existing projects into workspace** option.
 3. Done.
 
-###4. Project Demo
-Please refer to this article [Gradle - Spring 4 MVC Hello World + Annotation ](http://www.mkyong.com/spring-mvc/gradle-spring-4-mvc-hello-world-example-annotation/)
 
