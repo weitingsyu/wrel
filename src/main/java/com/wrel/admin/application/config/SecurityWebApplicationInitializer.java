@@ -1,11 +1,11 @@
 
 package com.wrel.admin.application.config;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 /**
  *
- * Page/Class Name: WebInitializer
+ * Page/Class Name: SecurityWebApplicationInitializer
  * Title:
  * Description:
  * author: weiting
@@ -15,8 +15,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  * Version 1.0
  *
  */
-public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-                                        
+public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
     //================================================
     //== [Enumeration types] Block Start
     //====
@@ -55,25 +54,11 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     //================================================
     //== [Overrided Method] Block Start (Ex. toString/equals+hashCode)
     //====
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { SpringWebConfig.class };
-    }
-
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return null;
-    }
-
-    @Override
-    protected String[] getServletMappings() {
-        return new String[] { "/" };
-    }
     //====
     //== [Overrided Method] Block Stop 
     //================================================
     //== [Method] Block Start
-    //====
+    //====   
     //####################################################################
     //## [Method] sub-block : 
     //####################################################################

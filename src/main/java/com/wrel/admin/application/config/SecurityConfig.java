@@ -1,11 +1,16 @@
 
 package com.wrel.admin.application.config;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
  *
- * Page/Class Name: WebInitializer
+ * Page/Class Name: WebSecurityConfig
  * Title:
  * Description:
  * author: weiting
@@ -15,8 +20,9 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  * Version 1.0
  *
  */
-public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-                                        
+
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //================================================
     //== [Enumeration types] Block Start
     //====
@@ -55,25 +61,28 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     //================================================
     //== [Overrided Method] Block Start (Ex. toString/equals+hashCode)
     //====
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { SpringWebConfig.class };
-    }
-
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return null;
-    }
-
-    @Override
-    protected String[] getServletMappings() {
-        return new String[] { "/" };
-    }
     //====
     //== [Overrided Method] Block Stop 
     //================================================
     //== [Method] Block Start
     //====
+    
+    
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth.inMemoryAuthentication().withUser("mkyong").password("123456").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password("123456").roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("dba").password("123456").roles("DBA");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_USER')").antMatchers("/dba/**")
+                .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')").and().formLogin();
+
+    }
     //####################################################################
     //## [Method] sub-block : 
     //####################################################################

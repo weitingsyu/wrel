@@ -1,8 +1,6 @@
 
 package com.wrel.admin.controller;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.wrel.admin.entity.User;
 import com.wrel.admin.service.UserService;
 
 /**
@@ -77,22 +74,24 @@ public class IndexController {
     //== [Method] Block Start
     //====
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Map<String, Object> model) {
+    @RequestMapping(value = { "/", "index", "login" }, method = RequestMethod.GET)
+    public ModelAndView index() {
 
         logger.debug("index() is executed!");
-        final User user = this.userService.getUserByEmail("aa");
-        logger.debug("user : {}", user.toString());
-        return "index";
+        ModelAndView model = new ModelAndView();
+        model.addObject("title", "Spring Security Hello World");
+        model.addObject("message", "This is welcome page!");
+        model.setViewName("hello");
+        return model;
     }
 
-    @RequestMapping(value = "/hello/{name:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/{name:.+}", method = RequestMethod.GET)
     public ModelAndView hello(@PathVariable("name") String name) {
 
-        logger.debug("hello() is executed - $name {}", name);
-
         ModelAndView model = new ModelAndView();
-        model.setViewName("index");
+        model.addObject("title", "Spring Security Hello World");
+        model.addObject("message", "This is protected page - Admin Page!");
+        model.setViewName("admin");
 
         return model;
 
