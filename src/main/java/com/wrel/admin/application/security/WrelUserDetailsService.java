@@ -1,17 +1,14 @@
 
-package com.wrel.admin.application.config;
+package com.wrel.admin.application.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  *
- * Page/Class Name: WebSecurityConfig
+ * Page/Class Name: WrelUserDetailsService
  * Title:
  * Description:
  * author: weiting
@@ -21,9 +18,43 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * Version 1.0
  *
  */
+@Service
+public class WrelUserDetailsService implements UserDetailsService {
 
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO 自動產生方法 Stub
+        return null;
+    }
+
+    //    @Autowired
+    //    private UserService userService;
+    //     
+    //    @Transactional(readOnly=true)
+    //    public UserDetails loadUserByUsername(String username)
+    //            throws UsernameNotFoundException {
+    //        User user = userService.findBySso(ssoId);
+    //        System.out.println("User : "+user);
+    //        if(user==null){
+    //            System.out.println("User not found");
+    //            throw new UsernameNotFoundException("Username not found");
+    //        }
+    //            return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(), 
+    //                 user.getState().equals("Active"), true, true, true, getGrantedAuthorities(user));
+    //    }
+    // 
+    //     
+    //    private List<GrantedAuthority> getGrantedAuthorities(User user){
+    //        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+    //         
+    //        for(UserProfile userProfile : user.getUserProfiles()){
+    //            System.out.println("UserProfile : "+userProfile);
+    //            authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getType()));
+    //        }
+    //        System.out.print("authorities :"+authorities);
+    //        return authorities;
+    //    }
+    //     
     //================================================
     //== [Enumeration types] Block Start
     //====
@@ -37,10 +68,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //================================================
     //== [instance variables] Block Start
     //====
-    @Autowired
-    @Qualifier("customUserDetailsService")
-    UserDetailsService userDetailsService;
-
     //====
     //== [instance variables] Block Stop 
     //================================================
@@ -71,25 +98,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //================================================
     //== [Method] Block Start
     //====
-
-    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//        .antMatchers("/", "/home").permitAll()
-//        .antMatchers("/admin/**").access("hasRole('ADMIN')")
-//        .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
-//        .and().formLogin().loginPage("/login")
-//        .usernameParameter("ssoId").passwordParameter("password")
-//        .and().csrf()
-//        .and().exceptionHandling().accessDeniedPage("/Access_Denied");
-        http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_USER')").antMatchers("/dba/**")
-                .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')").and().formLogin();
-
-    }
     //####################################################################
     //## [Method] sub-block : 
     //####################################################################
