@@ -45,6 +45,10 @@ dependencies {
     compile 'org.springframework:spring-orm:' +springVersion
     compile 'org.springframework:spring-tx:' +springVersion
     
+    //spring security
+    compile 'org.springframework.security:spring-security-core:4.0.4.RELEASE'
+    compile 'org.springframework.security:spring-security-web:4.0.4.RELEASE'
+    compile 'org.springframework.security:spring-security-config:4.0.4.RELEASE'      
     
     //hibernate
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
