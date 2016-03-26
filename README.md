@@ -1,4 +1,4 @@
-Gradle - Spring 4 MVC Hello World
+Gradle - Spring 4 MVC for WREL
 ===============================
 Template for Spring 4 MVC + JSP view + Annotation configuration, using Gradle build tool.
 
