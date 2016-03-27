@@ -5,6 +5,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.wrel.admin.entity.User;
+import com.wrel.admin.entity.User.Status;
 
 /**
  *
@@ -63,12 +64,16 @@ public class UserDao extends BaseDao {
     //================================================
     //== [Method] Block Start
     //====
-    public final User getUserByEmail(final String email) {
+    public final User getUserByEmail(final String email, final Status status) {
         final StringBuilder str = new StringBuilder();
-        str.append("FROM User WHERE email = :email");
+        str.append(" FROM User ");
+        str.append(" WHERE email = :email ");
+        str.append("    AND   ");
+        str.append(" status = :status  ");
 
         final Query query = this.sessionFactory.getCurrentSession().createQuery(str.toString());
         query.setString("email", email);
+        query.setInteger("status", status.getValue());
 
         final User user = (User) query.uniqueResult();
         return user;

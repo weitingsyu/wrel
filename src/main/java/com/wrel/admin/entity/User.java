@@ -29,6 +29,20 @@ public class User extends BaseEntity implements Serializable {
     //================================================
     //== [Enumeration types] Block Start
     //====
+    public enum Status {
+        NON_ACTIVE(0), ACTIVE(1);
+
+        private int value;
+
+        public int getValue() {
+            return this.value;
+        }
+
+        Status(final int value) {
+            this.value = value;
+        }
+    }
+
     //====
     //== [Enumeration types] Block End 
     //================================================

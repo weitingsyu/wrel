@@ -34,7 +34,7 @@ public class IndexController {
     //================================================
     //== [static variables] Block Start
     //====
-    private final Logger logger = LoggerFactory.getLogger(IndexController.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
     //====
     //== [static variables] Block Stop 
@@ -77,22 +77,17 @@ public class IndexController {
     @RequestMapping(value = { "/", "index", "login" }, method = RequestMethod.GET)
     public ModelAndView index() {
 
-        logger.debug("index() is executed!");
+        LOGGER.debug("index() is executed!");
         ModelAndView model = new ModelAndView();
-        model.addObject("title", "Spring Security Hello World");
-        model.addObject("message", "This is welcome page!");
-        model.setViewName("hello");
+        model.setViewName("login");
         return model;
     }
 
-    @RequestMapping(value = "/admin/{name:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public ModelAndView hello(@PathVariable("name") String name) {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("title", "Spring Security Hello World");
-        model.addObject("message", "This is protected page - Admin Page!");
-        model.setViewName("admin");
-
+        model.setViewName("welcome");
         return model;
 
     }

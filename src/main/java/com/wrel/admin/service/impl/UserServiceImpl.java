@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wrel.admin.dao.UserDao;
 import com.wrel.admin.entity.User;
+import com.wrel.admin.entity.User.Status;
 import com.wrel.admin.service.UserService;
 
 /**
@@ -73,9 +74,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public final User getUserByEmail(final String email) {
+    public final User getUserByEmail(final String email, final Status status) {
 
-        return this.userDao.getUserByEmail(email);
+        return this.userDao.getUserByEmail(email, status);
     }
     //====
     //== [Overrided Method] Block Stop 

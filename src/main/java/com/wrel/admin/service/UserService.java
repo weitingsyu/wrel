@@ -2,6 +2,7 @@
 package com.wrel.admin.service;
 
 import com.wrel.admin.entity.User;
+import com.wrel.admin.entity.User.Status;
 
 /**
  *
@@ -19,7 +20,7 @@ public interface UserService {
     //================================================
     //== [Method] Block Start
     //====
-    User getUserByEmail(final String email);
+    User getUserByEmail(final String email, final Status status);
     //####################################################################
     //## [Method] sub-block : 
     //####################################################################

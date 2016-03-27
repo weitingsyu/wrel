@@ -2,7 +2,6 @@
 package com.wrel.admin.application.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -38,8 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //== [instance variables] Block Start
     //====
     @Autowired
-    @Qualifier("customUserDetailsService")
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     //====
     //== [instance variables] Block Stop 
@@ -71,23 +69,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //================================================
     //== [Method] Block Start
     //====
-
+    @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//        .antMatchers("/", "/home").permitAll()
-//        .antMatchers("/admin/**").access("hasRole('ADMIN')")
-//        .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
-//        .and().formLogin().loginPage("/login")
-//        .usernameParameter("ssoId").passwordParameter("password")
-//        .and().csrf()
-//        .and().exceptionHandling().accessDeniedPage("/Access_Denied");
-        http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_USER')").antMatchers("/dba/**")
-                .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')").and().formLogin();
+        http.authorizeRequests()//
+
+                .antMatchers("/", "/login").permitAll().and().formLogin().defaultSuccessUrl("/welcome")
+                .loginProcessingUrl("/j_spring_security_check")//  
+                .usernameParameter("username").passwordParameter("password").and().csrf()//
+                .and().exceptionHandling().accessDeniedPage("/login");
+
+        //      http.authorizeRequests()
+        //      .antMatchers("/", "/home").permitAll()
+        //      .antMatchers("/admin/**").access("hasRole('ADMIN')")
+        //      .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
+        //      .and().formLogin().loginPage("/login")
+        //      .usernameParameter("ssoId").passwordParameter("password")
+        //      .and().csrf()
+        //      .and().exceptionHandling().accessDeniedPage("/Access_Denied");
+
+        //        http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_USER')").antMatchers("/dba/**")
+        //                .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')").and().formLogin();
 
     }
     //####################################################################

@@ -15,8 +15,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.wrel.spring.config.SpringRootConfig;
-import com.wrel.spring.config.SpringWebConfig;
+import com.wrel.admin.application.config.SpringRootConfig;
+import com.wrel.admin.application.config.SpringWebConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
