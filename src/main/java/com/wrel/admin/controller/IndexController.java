@@ -84,7 +84,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public ModelAndView hello(@PathVariable("name") String name) {
+    public ModelAndView hello() {
 
         ModelAndView model = new ModelAndView();
         model.setViewName("welcome");

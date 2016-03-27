@@ -77,8 +77,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()//
-
-                .antMatchers("/", "/login").permitAll().and().formLogin().defaultSuccessUrl("/welcome")
+                .antMatchers("/resources/**").permitAll()//
+                .antMatchers("/", "/login").permitAll()//
+                .anyRequest().hasRole("USER")//
+                .and().formLogin().loginPage("/login")//
+                .defaultSuccessUrl("/welcome")//
                 .loginProcessingUrl("/j_spring_security_check")//  
                 .usernameParameter("username").passwordParameter("password").and().csrf()//
                 .and().exceptionHandling().accessDeniedPage("/login");
