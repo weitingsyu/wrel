@@ -12,8 +12,7 @@
 
 </head>
 <script>
-	function sendLogin() {
-		alert("test");
+	function sendLogin() {		
 		$("#form1").submit();
 	}
 </script>

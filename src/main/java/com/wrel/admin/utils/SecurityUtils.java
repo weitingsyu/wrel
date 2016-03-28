@@ -1,32 +1,25 @@
 
-package com.wrel.admin.application.config;
+package com.wrel.admin.utils;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.codec.Base64;
 
 /**
  *
- * Page/Class Name: SpringWebConfig
+ * Page/Class Name: SecurityUtils
  * Title:
  * Description:
  * author: weiting
- * Create Date:	2016年3月26日
+ * Create Date:	2016年3月28日
  * Last Modifier: eldar
- * Last Modify Date: 2016年3月26日
+ * Last Modify Date: 2016年3月28日
  * Version 1.0
  *
  */
-@EnableWebMvc
-@Configuration
-@ComponentScan({ "com.wrel." })
-public class SpringWebConfig extends WebMvcConfigurerAdapter {
-
+public class SecurityUtils {
     //================================================
     //== [Enumeration types] Block Start
     //====
@@ -55,6 +48,26 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
     //================================================
     //== [Static Method] Block Start
     //====
+    public static String encodeWithMD5AndBase64(final String str) {
+        System.out.println("str = " + str);
+        if (StringUtils.isEmpty(str)) {
+            return StringUtils.EMPTY;
+        } else {
+            String encodeStr = "";
+            final byte[] utfBytes = str.getBytes();
+            MessageDigest mdTemp;
+            try {
+                mdTemp = MessageDigest.getInstance("MD5");
+                mdTemp.update(utfBytes);
+                byte[] md5Bytes = mdTemp.digest();
+                encodeStr = new String(Base64.encode(md5Bytes));
+
+            } catch (NoSuchAlgorithmException e) {
+                return null;
+            }
+            return encodeStr;
+        }
+    }
     //====
     //== [Static Method] Block Stop 
     //================================================
@@ -64,21 +77,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
     //== [Accessor] Block Stop 
     //================================================
     //== [Overrided Method] Block Start (Ex. toString/equals+hashCode)
-    //====@Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-    }
-
-    @Bean
-    public InternalResourceViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }
-
-   
+    //====
     //====
     //== [Overrided Method] Block Stop 
     //================================================

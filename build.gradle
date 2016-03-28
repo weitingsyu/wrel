@@ -58,7 +58,8 @@ dependencies {
     compile 'mysql:mysql-connector-java:5.1.38'    
 	compile 'javax.servlet:jstl:' + jstlVersion  
 	compile 'org.apache.commons:commons-lang3:3.4'
-	compile 'commons-collections:commons-collections:3.2.2'	
+	compile 'commons-collections:commons-collections:3.2.2'
+	compile 'commons-codec:commons-codec:1.9'	
 	compile 'p6spy:p6spy:2.2.0'	        
     
     

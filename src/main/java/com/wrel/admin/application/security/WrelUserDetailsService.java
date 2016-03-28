@@ -79,16 +79,15 @@ public class WrelUserDetailsService implements UserDetailsService {
     //== [Overrided Method] Block Start (Ex. toString/equals+hashCode)
     //====
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        LOGGER.debug("email :{}", email);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {        
         final User user = userService.getUserByEmail(email, Status.ACTIVE);
 
         if (user == null) {
             LOGGER.info("user :{} not found", email);
             throw new UsernameNotFoundException("Username not found");
         }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), true, true,
-                true, true, getGrantedAuthorities(user));
+        LOGGER.debug("user :{} ", user.toString());
+        return new LoginInfo(user, this.getGrantedAuthorities(user));
     }
 
     //====
